@@ -95,7 +95,31 @@ async function getAllFlights(query) {
     }
 }
 
+async function getFlight(id){
+    try {
+        const response = await flightRepository.get(id);
+        return response
+    } catch (error) {
+        if(error.statusCode === StatusCodes.NOT_FOUND){
+            throw new AppError('Requested flight is Not found',error.statusCode);
+        }
+    throw new AppError('Cannot fetch data of all the flight',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+async function updateRemainingSeats(data){
+    
+    try {
+        const response = await flightRepository.updateRemainingSeats(data.flightId,data.seats,data.dec);
+        return response 
+    } catch (error) {
+    throw new AppError('Cannot update data of the seats',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 module.exports ={
     createFlight,
-    getAllFlights
+    getAllFlights,
+    updateRemainingSeats,
+    getFlight
 }

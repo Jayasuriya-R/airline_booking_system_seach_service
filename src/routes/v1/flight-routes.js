@@ -10,4 +10,7 @@ router.post('/',FlightMiddleware.validateCreateFlight,FlightController.createFli
 
 router.get('/',FlightController.getAllFlights)
 
+router.patch('/:id/seats',FlightMiddleware.validateUpdateRemainingSeats,FlightController.updateRemainingSeats)
+
+router.get('/:id',FlightController.getFlight)
 module.exports = router;
